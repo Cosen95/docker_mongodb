@@ -119,10 +119,61 @@
 
 * 字段操作符
 * 数组操作符
-* 运算操作符
-* 文档游标函数
-* 文档投影操作
 
-```
+  - \$all 匹配数组字段中包含所有查询值的文档
+    `{ field: { $all: [<value1>, <value2>, ...] }}`
 
-```
+  - \$elemMatch 匹配数组字段中至少存在一个值满足筛选条件的文档
+    `{ field: { $elemMatch: [<query1>, <query2>, ...] }}`
+
+- 运算操作符
+
+  - \$regex 匹配满足正则表达式的文档
+
+    ```
+    { field: { : /pattern/, : '<options>'}}
+    { field: { : /pattern/<options> }}
+
+    * 兼容PCRE v8.41正则表达式库
+    * 在和$in操作符一起使用时，只能使用/pattern/<options>
+    ```
+
+- 文档游标函数
+  db.collection.find()返回一个文档集合游标，在不迭代游标的情况下，只列出前 20 个文档。可以使用游标下标直接访问文档集合中的某一个文档。游历完游标中的所有文档之后，或者在 10 分钟之后，游标便会自动关闭，可以使用 noCursorTimeout()函数来保持游标一直有效。
+
+  - cursor.hasNext()
+  - cursor.next()
+  - cursor.forEach()
+  - cursor.limit()
+  - cursor.skip()
+  - cursor.count()
+
+    ```
+      cursor.count(applySkipLimit)
+
+      * 默认情况下，applySkipLimit为false，即cursor.count()不会考虑cursor.limit()和cursor.skip()的效果
+    ```
+
+  - cursor.sort()
+
+    ```
+      cursor.sort({ field: ordering })
+
+      * ordering: 1表示由小及大的正向排序，-1表示逆向排序
+
+    ```
+
+  cursor.skip()在 cursor.limit()之前执行；cursor.sort()在 cursor.skip()和 cursor.limit()之前执行
+
+- 文档投影操作
+
+  ```
+    db.collection.find(query, projection)
+
+    * 不使用投影时，db.collection.find()返回符合筛选条件的完整文档
+    * 使用投影可以有选择的返回文档中的部分字段
+    * { field: inclusion } 1表示返回字段/0表示不返回字段
+
+  ```
+
+  除了文档主键之外，我们不可以在投影文档中混合使用包含和不包含这两种投影操作。要么列出所有应该包含的，要么列出所有不应该包含的字段
