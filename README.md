@@ -31,9 +31,52 @@
 ## 创建文档
 
 - db.collection.insertOne() 创建单一文档
+
+  ```
+    db.collection.insertOne(<document>, {
+      writeConcern: <document>
+    })
+
+    <document>: 要写入的文档本身
+    writeConcern: 定义了文档创建操作的安全写级别。简单来说，安全写级别用来判断一次数据库写入操作是否成功。安全写级别越高，丢失数据的风险就越低，然而写入操作的延迟也可能更高。如果不提供writeConcern文档，mongoDB使用默认的安全写级别。
+  ```
+
 - db.collection.insertMany() 创建多个文档
+
+  ```
+    db.collection.insertMany([<document1>, <document2>, ...],
+      {
+        writeConcern: <document>,
+        ordered: <boolean>
+      }
+    )
+
+    ordered: 用来决定mongoDB是否要按顺序来写入这些文档
+    如果将ordered参数设置为false，mongoDB可以打乱文档写入的顺序，以便优化写入操作的性能
+    ordered参数的默认值为true
+  ```
+
 - db.collection.insert() 创建单一或多个文档
+
+  ```
+    db.collection.insert(<document or array of documents>,
+      {
+        writeConcern: <document>,
+        ordered: <boolean>
+      }
+    )
+  ```
+
 - db.collection.save() 创建单一文档
+
+  ```
+    db.collection.save(<document>,  {
+      writeConcern: <document>
+    })
+
+    db.collection.save()命令处理一个新文档的时候，它会调用db.collection.insert()命令
+  ```
+
 - 对象主键 ObjectId
 - 复合主键
 
