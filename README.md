@@ -205,3 +205,36 @@
     * 如果$unset命令中的字段根本不存在，那么文档内容将保持不变
     * 当使用$unset命令删除数组字段中的某一个元素时，这个元素不会被删除，只会被赋以null值，而数组的长度不会改变
   ```
+
+* \$rename(重命名字段)
+
+  ```
+    { $rename: { <field1>: <newName1>, ... }}
+
+    * 如果$rename命令要重命名的字段并不存在，那么文档内容不会被改变
+    * 如果新的字段名已经存在，那么原有的这个字段会被覆盖
+    * 当$rename命令中的新字段存在的时候，$rename命令会先$unset新旧字段，然后再$set新字段
+    * $rename命令中的旧字段和新字段都不可以指向数组元素
+  ```
+
+* \$inc
+* \$mul
+
+  - \$inc 和\$mul 只能应用于数字字段
+  - 如果被更新的字段不存在，\$inc 会创建字段，并且将字段值设为命令中的增减值。而\$mul 会创建字段，但是把字段值设为 0
+
+* \$min
+* \$max
+  - 比较之后更新值
+  - 如果被更新的字段类型和更新值类型不一致，\$min 和\$max 按照 BSON 数据类型排序规则进行比较
+    - Null
+    - Numbers(ints, longs, doubles, decimals)
+    - Symbol, String
+    - Object
+    - Array
+    - BinData
+    - ObjectId
+    - Boolean
+    - Date
+    - TimeStamp
+    - Regular Expression
