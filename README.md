@@ -15,6 +15,14 @@
   - `docker ps`
 * 查看数据库服务器日志
   - `docker logs mymongo`
+* 启动一个已经停止的容器
+  - `docker start 容器ID或容器名`
+* 优雅的停止正在运行的容器
+  - `docker stop 容器ID或容器名`
+* 直接关闭容器
+  - `docker kill 容器ID或容器名`
+* 重启一个容器
+  - `docker restart 容器ID或容器名`
 
 ## Mongo Express(一个基于网络的 MongoDB 数据库管理界面)
 
@@ -26,7 +34,7 @@
 ## Mongo shell(用来操作 mongodb 的 javascript 客户端界面)
 
 - 运行 mongo shell
-  - `Docker exec -it mymongo mongo`
+  - `docker exec -it mymongo mongo`
 
 ## 创建文档
 
