@@ -260,3 +260,14 @@
 * \$pullAll(从数组中有选择性的移除元素)
 
 - \$push(向数组中增添元素)
+  - 使用\$position 操作符将元素插入到数组的指定位置
+  * 使用\$sort 对数组进行排序
+  * 利用\$slice 来截取部分数组
+  * 操作执行顺序：$position > $sort > \$slice
+
+* db.collection.update(query, update, options)
+  ```
+    更新文档选项：
+      { multi: <boolean> } 更新多个文档
+      { upsert: <boolean> } 更新或者创建文档
+  ```
