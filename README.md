@@ -271,3 +271,13 @@
       { multi: <boolean> } 更新多个文档
       { upsert: <boolean> } 更新或者创建文档
   ```
+
+## 删除文档
+
+- db.collection.remove() (删除文档)
+
+  - 在默认情况下，remove 命令会删除所有符合条件的文档
+  - 使用 justOne 选项可以只删除满足条件的第一篇文档
+
+- db.collection.drop() (删除集合)
+  - drop 命令可以删除整个集合，包括集合中的所有文档，以及集合的索引
